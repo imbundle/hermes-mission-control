@@ -1,6 +1,6 @@
 import { useI18n } from '../../lib/i18n';
 import { useMissionControl } from '../../lib/mission-control-store';
-import { Badge } from '../ui/Badge';
+import { BadgeAdapter } from '../mcui-adapters/BadgeAdapter';
 import { Card } from '../ui/Card';
 import { Zap } from 'lucide-react';
 
@@ -54,9 +54,9 @@ export function AgentStatusBar() {
 
         {/* Status */}
         <div className="flex items-center gap-1.5 shrink-0">
-          <Badge variant={variant} dot>
+          <BadgeAdapter variant={variant} dot>
             {STATUS_LABELS[status] ?? status}
-          </Badge>
+          </BadgeAdapter>
         </div>
 
         {/* Fallback model */}
