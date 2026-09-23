@@ -37,7 +37,7 @@
     "remark-gfm": "4.0.1",
     "tldraw": "5.3.2",
     "yaml": "^2.4.2",
-    "@mcui/react": "file:./vendor/mcui-react-0.1.0-bdfc4f3.tgz"
+    "@mcui/react": "file:./vendor/mcui-react-0.1.0-db81930.tgz"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

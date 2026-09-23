@@ -21,8 +21,8 @@ importers:
   .:
     dependencies:
       '@mcui/react':
-        specifier: file:./vendor/mcui-react-0.1.0-bdfc4f3.tgz
-        version: file:vendor/mcui-react-0.1.0-bdfc4f3.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: file:./vendor/mcui-react-0.1.0-db81930.tgz
+        version: file:vendor/mcui-react-0.1.0-db81930.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@xterm/addon-fit':
         specifier: ^0.11.0
         version: 0.11.0
@@ -364,8 +364,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@mcui/react@file:vendor/mcui-react-0.1.0-bdfc4f3.tgz':
-    resolution: {integrity: sha512-hFVk2r+yAucWKPLbJFUroSZ1ZS++r3ZELijf5g53yjPfcBerlFZcNU+Y0+vaU4z1mjXn/uwW6jZxULN38Jksig==, tarball: file:vendor/mcui-react-0.1.0-bdfc4f3.tgz}
+  '@mcui/react@file:vendor/mcui-react-0.1.0-db81930.tgz':
+    resolution: {integrity: sha512-YxE6DQQDpLjvpH8sfKr5JCO4Cz8Bsm7x5q1ooDmfm5kgyxKQbS1+sSsLS3sPtRKnQIPMT569ng99/C9wmUIkSw==, tarball: file:vendor/mcui-react-0.1.0-db81930.tgz}
     version: 0.1.0
     engines: {node: '>=22.23.2', pnpm: '>=10.33.2'}
     peerDependencies:
@@ -2672,7 +2672,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@mcui/react@file:vendor/mcui-react-0.1.0-bdfc4f3.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@mcui/react@file:vendor/mcui-react-0.1.0-db81930.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       lucide-react: 1.47.0(react@19.3.0)
       react: 19.3.0
