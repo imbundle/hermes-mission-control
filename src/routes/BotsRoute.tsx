@@ -5,7 +5,7 @@ import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
 import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
-import { Dropdown } from '../components/ui/Dropdown';
+import { DropdownAdapter } from '../components/mcui-adapters/DropdownAdapter';
 import { ToggleSwitchAdapter } from '../components/mcui-adapters/ToggleSwitchAdapter';
 import { PageHeader } from '../components/PageHeader';
 import { useMissionControl } from '../lib/mission-control-store';
@@ -453,7 +453,7 @@ function ProfileEditor({
           <label className="block text-xs font-medium text-text-muted">
             {t('bots.startingProfile')}
             <div className="mt-1.5">
-              <Dropdown
+              <DropdownAdapter
                 value={draft.cloneFrom ?? ''}
                 options={startingProfileOptions}
                 onChange={(cloneFrom) => onChange({
@@ -472,7 +472,7 @@ function ProfileEditor({
           <label className="block text-xs font-medium text-text-muted">
             {t('bots.provider')}
             <div className="mt-1.5">
-              <Dropdown
+              <DropdownAdapter
                 value={draft.provider}
                 options={providerOptions}
                 onChange={(provider) => {
@@ -487,7 +487,7 @@ function ProfileEditor({
           <label className="block text-xs font-medium text-text-muted">
             {t('bots.model')}
             <div className="mt-1.5">
-              <Dropdown
+              <DropdownAdapter
                 value={draft.model}
                 options={modelSelectOptions}
                 onChange={(model) => onChange({ model })}

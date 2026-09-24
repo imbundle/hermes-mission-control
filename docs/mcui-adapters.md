@@ -12,6 +12,7 @@ deliberately narrow: **one pilot**, not a migration.
 | `ButtonAdapter` | `Button` | `src/components/mcui-adapters/ButtonAdapter.tsx` |
 | `ToggleSwitchAdapter` | `Switch` | `src/components/mcui-adapters/ToggleSwitchAdapter.tsx` |
 | `CardAdapter` | `Card` | `src/components/mcui-adapters/CardAdapter.tsx` |
+| `DropdownAdapter` | `Select` | `src/components/mcui-adapters/DropdownAdapter.tsx` |
 
 `BadgeAdapter` is a thin wrapper: its `variant` prop is a 1:1 identity map onto
 `StatusBadge`'s `StatusBadgeVariant` union (`default` \| `positive` \| `warning` \| `negative`),
@@ -39,6 +40,15 @@ passed straight through. mcui's `Card` additionally accepts `title`/`header`/`ti
 real call sites reference them (self-referenced only in `Card.tsx`'s own definition), so the
 adapter doesn't need to reproduce them. Forwards `ref` for API parity with MC's original
 (`forwardRef`-wrapped).
+
+`DropdownAdapter` is **NOT** a thin wrapper — it bridges 4 real functional deltas between MC's
+`Dropdown` (`src/components/ui/Dropdown.tsx`) and mcui's `Select`: (1) `onChange` shape (MC:
+`(value: string) => void`; mcui: synthesized `{ target: { value } }` event, unwrapped by the
+adapter); (2) positioning (MC portals to `document.body` with `position: fixed`; mcui renders
+`position: absolute` relative to its own wrapper, no portal); (3) `placeholder` (MC shows
+placeholder text for an unmatched value; mcui has no such prop — the adapter synthesizes a
+disabled placeholder option when needed, though no live call site currently exercises this
+path); (4) `dropUp` — see below, this is where migration stopped short.
 
 ## Call sites replaced
 
@@ -80,6 +90,30 @@ mechanically renamed both dead imports to `CardAdapter`, which is still unused i
 Confirmed harmless (`noUnusedLocals` is off in this project's `tsconfig.json`, so this doesn't
 surface as a build/type error) but flagged here for a future cleanup pass, out of scope for a
 migration issue.
+
+`Dropdown` was **partially** migrated in Phase 6.5 (issue #82) — the only Phase 6.2+ migration
+that did not go all the way. Of the 9 real `<Dropdown>` JSX occurrences across 2 files:
+
+- **5 migrated to `DropdownAdapter`**: `KanbanRoute.tsx`'s tenant/assignee filters (2, neither
+  passes `dropUp`); `BotsRoute.tsx`'s starting-profile/provider/model selects (3, none pass
+  `dropUp`). Verified end-to-end in browser with real CDP clicks (not synthetic JS events, which
+  mcui's `Select` doesn't intercept — it binds `onPointerDown`, not `onClick`, on its options):
+  open → select → `onChange` fires → dependent field (`Model`, gated on `Provider`) unlocks
+  correctly. Both themes checked.
+
+- **4 left on MC's own `Dropdown`** (still imported in `KanbanRoute.tsx`, `ui/Dropdown.tsx` not
+  touched): the task-detail drawer's priority editor (line 382) and the new-task form's priority/
+  workspace-kind/parent-task fields (lines 909/933/959) — all 4 pass `dropUp`. **Reason: a real
+  mcui defect**, confirmed by reading `@mcui/react`'s shipped bundle (`Select`'s `above`/`below`
+  placement logic computes free space against `window.innerHeight` but never clamps the final
+  position to the viewport or nearest scrollable ancestor, unlike mcui's own `Popover`/`Tooltip`
+  which do `Math.max(8, ...)`). Live-tested against a clean pre-migration worktree at the same
+  viewport: MC's own `Dropdown` always clamps to `top: 8px` minimum; mcui's `Select` rendered
+  `top: -5.27px` in the same drawer (`overflow-y: auto`, `scrollTop: 0`) — the top option was
+  clipped and unreachable, not merely a cosmetic overflow. This is a defect in `@mcui/react`,
+  not an adapter wiring bug — confirmed by reading its compiled source, not inferred.
+  **Do not re-attempt migrating these 4 call sites without first verifying upstream that this
+  clamp-on-flip defect has been fixed in a newer `@mcui/react` release.**
 
 ## What did NOT change
 

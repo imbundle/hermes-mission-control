@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Kanban as KanbanIcon, RefreshCw, Plus, X, MessageSquare, GitBranch, Trash2, Search, ChevronDown } from 'lucide-react';
 import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
+import { DropdownAdapter } from '../components/mcui-adapters/DropdownAdapter';
 import { Dropdown } from '../components/ui/Dropdown';
 import {
   loadKanbanBoard,
@@ -829,7 +830,7 @@ export function KanbanRoute() {
           </div>
           {tenants.length > 0 ? (
             <div className="w-32">
-              <Dropdown
+              <DropdownAdapter
                 value={filterTenant}
                 onChange={setFilterTenant}
                 ariaLabel="Filter by tenant"
@@ -840,7 +841,7 @@ export function KanbanRoute() {
           ) : null}
           {assignees.length > 0 ? (
             <div className="w-32">
-              <Dropdown
+              <DropdownAdapter
                 value={filterAssignee}
                 onChange={setFilterAssignee}
                 ariaLabel="Filter by assignee"
