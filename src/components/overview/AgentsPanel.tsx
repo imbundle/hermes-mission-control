@@ -1,7 +1,7 @@
 import { useI18n } from '../../lib/i18n';
 import { Sparkles } from 'lucide-react';
 import type { MissionControlSessionsSnapshot } from '../../lib/hermes-api';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { Badge } from '../ui/Badge';
 import { formatRelativeTime } from '../../lib/format';
 
@@ -26,7 +26,7 @@ export function AgentsPanel({
     .slice(0, 3);
 
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-border-subtle">
         <div className="flex flex-col gap-0.5">
           <span className="eyebrow">{t('nav.agents')}</span>
@@ -67,6 +67,6 @@ export function AgentsPanel({
           )}
         </div>
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

@@ -1,7 +1,7 @@
 import { useI18n } from '../../lib/i18n';
 import { useEffect, useState } from 'react';
 import { Cloud, RefreshCw } from 'lucide-react';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import {
   loadProviderUsage,
   type MissionControlProviderUsage,
@@ -222,7 +222,7 @@ export function ProviderUsagePanel() {
 
   if (!snapshot?.available) {
     return (
-      <Card padding="none">
+      <CardAdapter padding="none">
         <div className="px-3 pt-3 pb-2 border-b border-border-subtle flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Cloud size={15} className="text-sky-400" />
@@ -234,12 +234,12 @@ export function ProviderUsagePanel() {
           {refreshing ? <RefreshCw size={12} className="text-text-subtle animate-spin" /> : null}
         </div>
         <div className="p-3"><p className="text-sm text-text-muted">{snapshot ? t('provider.unavailable') : t('provider.loading')}</p></div>
-      </Card>
+      </CardAdapter>
     );
   }
 
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="px-3 pt-3 pb-2 border-b border-border-subtle flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Cloud size={15} className="text-sky-400" />
@@ -256,6 +256,6 @@ export function ProviderUsagePanel() {
       <div className="p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {snapshot.providers.map((provider) => <ProviderCard key={provider.provider} provider={provider} />)}
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

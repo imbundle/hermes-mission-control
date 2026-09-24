@@ -2,7 +2,7 @@ import { useI18n } from '../../lib/i18n';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { loadSessionsUsage, type MissionControlSessionsUsageSnapshot } from '../../lib/hermes-api';
 import { useMissionControl } from '../../lib/mission-control-store';
 
@@ -54,7 +54,7 @@ export function UsagePanel() {
   const { totals } = usage;
 
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="px-3 pt-3 pb-2 border-b border-border-subtle flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
           <span className="eyebrow">{t('nav.usage')}</span>
@@ -91,6 +91,6 @@ export function UsagePanel() {
           color="text-amber-400"
         />
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

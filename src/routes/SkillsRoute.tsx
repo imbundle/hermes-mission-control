@@ -4,7 +4,7 @@ import { Brain, Download, FolderTree, LibraryBig, Power, RefreshCw, Search, File
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { ToggleSwitchAdapter } from '../components/mcui-adapters/ToggleSwitchAdapter';
@@ -318,7 +318,7 @@ export function SkillsRoute() {
   return (
     <div ref={containerRef} className="route-page-scroll flex h-full flex-col gap-5 overflow-y-auto sm:gap-6">
       <PullToReloadIndicator state={pullState} />
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <PageHeader
           eyebrow={t('skills.eyebrow')}
           title={t('skills.title')}
@@ -347,7 +347,7 @@ export function SkillsRoute() {
           <MetricCard icon={Power} label={t('skills.enabled')} value={String(enabled)} hint={t('skills.currentlyActive')} color="text-emerald-400" />
           <MetricCard icon={FolderTree} label={t('skills.model')} value={snapshot.activeModel} hint={t('skills.currentPrimaryModel')} color="text-amber-400" />
         </div>
-      </Card>
+      </CardAdapter>
 
       <div role="tablist" aria-label={t('skills.title')} className="flex min-h-11 shrink-0 flex-nowrap gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0">
         <ButtonAdapter type="button" role="tab" aria-selected={activeTab === 'installed'} size="sm" variant={activeTab === 'installed' ? 'primary' : 'secondary'} className="shrink-0 whitespace-nowrap" onClick={() => setActiveTab('installed')}>
@@ -359,7 +359,7 @@ export function SkillsRoute() {
       </div>
 
       {activeTab === 'installed' ? (
-        <Card padding="none" className="!border-0">
+        <CardAdapter padding="none" className="!border-0">
           <div className="flex flex-col gap-3 border-b border-border-subtle/60 px-4 pb-3 pt-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <span className="eyebrow">{t('skills.installed')}</span>
@@ -409,9 +409,9 @@ export function SkillsRoute() {
                 </article>
                 ))}
           </div>
-        </Card>
+        </CardAdapter>
       ) : (
-        <Card padding="none" className="!border-0">
+        <CardAdapter padding="none" className="!border-0">
           <div className="flex flex-col gap-3 border-b border-border-subtle/60 px-4 pb-3 pt-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <span className="eyebrow">{t('skills.hub')}</span>
@@ -519,7 +519,7 @@ export function SkillsRoute() {
               <div className="px-4 py-8 text-sm text-text-muted">{t('skills.noMatch')}</div>
             ) : null}
           </div>
-        </Card>
+        </CardAdapter>
       )}
 
       {detailSkill ? (

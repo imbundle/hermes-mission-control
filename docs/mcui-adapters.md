@@ -11,6 +11,7 @@ deliberately narrow: **one pilot**, not a migration.
 | `BadgeAdapter` | `StatusBadge` | `src/components/mcui-adapters/BadgeAdapter.tsx` |
 | `ButtonAdapter` | `Button` | `src/components/mcui-adapters/ButtonAdapter.tsx` |
 | `ToggleSwitchAdapter` | `Switch` | `src/components/mcui-adapters/ToggleSwitchAdapter.tsx` |
+| `CardAdapter` | `Card` | `src/components/mcui-adapters/CardAdapter.tsx` |
 
 `BadgeAdapter` is a thin wrapper: its `variant` prop is a 1:1 identity map onto
 `StatusBadge`'s `StatusBadgeVariant` union (`default` \| `positive` \| `warning` \| `negative`),
@@ -29,6 +30,15 @@ type="checkbox">` pattern as MC's own `ToggleSwitch`). mcui's version additional
 original lacks — neither is behaviorally required by either of the 2 call sites, so no
 extra mapping logic was needed. Forwards `ref` for API parity with MC's original (which is
 `forwardRef`-wrapped), though neither call site currently passes one.
+
+`CardAdapter` is a thin wrapper over mcui's `Card`: `variant` (`'default' | 'raised' |
+'sunken'`) and `padding` (`'none' | 'sm' | 'md' | 'lg'`) are identical unions on both sides,
+passed straight through. mcui's `Card` additionally accepts `title`/`header`/`titleLevel`
+(additive, unused by every call site — verified before writing the adapter). MC also exports
+`CardHeader`/`CardTitle` as separate subcomponents with no mcui equivalent; confirmed zero
+real call sites reference them (self-referenced only in `Card.tsx`'s own definition), so the
+adapter doesn't need to reproduce them. Forwards `ref` for API parity with MC's original
+(`forwardRef`-wrapped).
 
 ## Call sites replaced
 
@@ -54,6 +64,22 @@ call site as of this migration — not deleted, since deletion wasn't in issue #
 `ToggleSwitch` was fully migrated in Phase 6.3 (issue #80): both call sites now use
 `ToggleSwitchAdapter`. Files: `routes/{Skills,Bots}Route.tsx`. MC's own `ToggleSwitch` component
 (`src/components/ui/ToggleSwitch.tsx`) is left in place, unused, same rationale as `Button.tsx`.
+
+`Card` was fully migrated in Phase 6.4 (issue #81): all 21 files, all 39 `<Card>` JSX
+occurrences, now use `CardAdapter`. Files: `overview/{AgentsPanel,UsagePanel,AttentionNeeded,
+OverviewDashboard,SystemHealthPanel,QuickActions,ProviderUsagePanel,AgentStatusBar,
+ActivityFeed}.tsx`, `HonchoSettingsPanel.tsx`, `routes/{Tools,Kanban,Agents,Cron,Sessions,Usage,
+Skills,Knowledge,Logs,Config,Bots}Route.tsx`. MC's own `Card`/`CardHeader`/`CardTitle`
+(`src/components/ui/Card.tsx`) is left in place, `Card` unused, same rationale as `Button.tsx`;
+`CardHeader`/`CardTitle` were already unused before this migration (0 real call sites, verified
+in the Phase 6.1 audit).
+
+**Known pre-existing dead imports, not introduced by this migration**: `AgentStatusBar.tsx` and
+`KanbanRoute.tsx` imported `Card` but never used it in JSX even before Phase 6.4 — the migration
+mechanically renamed both dead imports to `CardAdapter`, which is still unused in both files.
+Confirmed harmless (`noUnusedLocals` is off in this project's `tsconfig.json`, so this doesn't
+surface as a build/type error) but flagged here for a future cleanup pass, out of scope for a
+migration issue.
 
 ## What did NOT change
 

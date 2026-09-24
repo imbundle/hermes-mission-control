@@ -4,7 +4,7 @@ import { ChevronDown, CircleAlert, Download, Loader2, Plus, RefreshCw, Save, Sea
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Dropdown } from '../components/ui/Dropdown';
 import { ToggleSwitchAdapter } from '../components/mcui-adapters/ToggleSwitchAdapter';
 import { PageHeader } from '../components/PageHeader';
@@ -136,7 +136,7 @@ function BotRoster({
 }) {
   const { t } = useI18n();
   return (
-    <Card padding="none" className="!border-0 overflow-hidden">
+    <CardAdapter padding="none" className="!border-0 overflow-hidden">
       <div className="flex items-center justify-between px-4 py-4">
         <div>
           <p className="eyebrow">{t('bots.roster')}</p>
@@ -179,7 +179,7 @@ function BotRoster({
           );
         })}
       </div>
-    </Card>
+    </CardAdapter>
   );
 }
 

@@ -11,7 +11,7 @@ test('session details use the shared modal instead of a desktop side panel', () 
 });
 
 test('session page surfaces do not render the bright default card border', () => {
-  assert.match(source, /<Card padding="none" className="min-w-0 !border-0"[\s\S]*id="sessions-results"/);
+  assert.match(source, /<CardAdapter padding="none" className="min-w-0 !border-0"[\s\S]*id="sessions-results"/);
   assert.doesNotMatch(source, /Select a session/);
 });
 

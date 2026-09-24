@@ -1,7 +1,7 @@
 import { useI18n } from '../lib/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, ArrowUp, FileText, Loader2, RefreshCw, TerminalSquare } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
@@ -234,7 +234,7 @@ export function LogsRoute() {
         )}
       />
 
-        <Card padding="none" className="!border-0">
+        <CardAdapter padding="none" className="!border-0">
         <div className="grid grid-cols-2 gap-2 p-3 sm:grid-cols-3 sm:gap-3 sm:p-4">
           <MetricCard
             icon={AlertTriangle}
@@ -259,15 +259,15 @@ export function LogsRoute() {
             className="hidden sm:block"
           />
         </div>
-        </Card>
+        </CardAdapter>
 
         {error ? (
-        <Card className="min-w-0 border-negative/30 bg-negative/5 p-4">
+        <CardAdapter className="min-w-0 border-negative/30 bg-negative/5 p-4">
           <p className="text-sm text-negative">{error}</p>
-        </Card>
+        </CardAdapter>
         ) : null}
 
-        <Card padding="none" className="min-w-0 overflow-hidden">
+        <CardAdapter padding="none" className="min-w-0 overflow-hidden">
         <div className="flex flex-col gap-2 border-b border-border px-4 pb-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-0.5">
             <span className="eyebrow">{t('logs.filters')}</span>
@@ -316,7 +316,7 @@ export function LogsRoute() {
               })}
             </div>
 
-            <Card variant="sunken" padding="none" className="min-w-0 overflow-hidden">
+            <CardAdapter variant="sunken" padding="none" className="min-w-0 overflow-hidden">
               <div className="border-b border-border bg-surface-raised/70 px-3 py-3 sm:px-4">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-medium text-text truncate">{activeFile.name}</p>
@@ -351,12 +351,12 @@ export function LogsRoute() {
                   <div className="px-4 py-6 text-sm text-text-muted italic">{t('logs.noLines')}</div>
                 )}
               </div>
-            </Card>
+            </CardAdapter>
           </div>
         ) : (
           <div className="px-4 py-8 text-center text-sm text-text-muted italic">{t('logs.noFiles')}</div>
         )}
-        </Card>
+        </CardAdapter>
 
       {showScrollTop ? (
         <ButtonAdapter

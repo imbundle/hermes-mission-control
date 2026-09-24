@@ -5,7 +5,7 @@ import { Activity, ArrowRight, Clock3, List, MessageSquare, Rocket } from 'lucid
 import { useMissionControl } from '../../lib/mission-control-store';
 import { getPluginRegistry } from '../../core/plugin-registry';
 import type { MCPluginAttentionContributor } from '../../core/plugins/types';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { Badge } from '../ui/Badge';
 import { AgentStatusBar } from './AgentStatusBar';
 import { SystemHealthPanel } from './SystemHealthPanel';
@@ -55,7 +55,7 @@ function SectionCard({
   children: React.ReactNode;
 }) {
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-border-subtle">
         <div className="flex flex-col gap-0.5">
           <span className="eyebrow">{eyebrow}</span>
@@ -64,7 +64,7 @@ function SectionCard({
         {actions ? <div className="flex items-center gap-2">{actions}</div> : null}
       </div>
       <div className="p-3">{children}</div>
-    </Card>
+    </CardAdapter>
   );
 }
 

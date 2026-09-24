@@ -12,7 +12,7 @@ import {
   Trash2,
   X,
 } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
@@ -478,14 +478,14 @@ export function CronRoute() {
         )}
       />
       {error ? <div className="flex items-center justify-between gap-3 rounded-lg border border-negative/30 bg-negative-subtle px-3 py-2 text-sm text-negative"><span>{error}</span><button type="button" onClick={() => setError(null)} aria-label={t('common.dismiss')}><X className="h-4 w-4" /></button></div> : null}
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <div className="grid grid-cols-2 gap-2.5 p-3 sm:gap-3 sm:p-4 xl:grid-cols-4">
           <Metric label={t('cron.metrics.total')} value={String(jobs.length)} icon={Clock3} />
           <Metric label={t('cron.metrics.enabled')} value={String(counters.enabled)} icon={Play} />
           <Metric label={t('cron.metrics.paused')} value={String(counters.paused)} icon={Pause} />
           <Metric label={t('cron.metrics.failed')} value={String(counters.failed)} icon={RotateCcw} />
         </div>
-      </Card>
+      </CardAdapter>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <label className="flex items-center gap-2 text-xs text-text-muted">
           <span>{t('cron.form.profile')}</span>
@@ -495,7 +495,7 @@ export function CronRoute() {
           </select>
         </label>
       </div>
-      <Card padding="none">
+      <CardAdapter padding="none">
         <div className="border-b border-border-subtle px-4 pb-3 pt-4"><span className="eyebrow">{t('cron.list.eyebrow')}</span><h3 className="mt-0.5 text-sm font-semibold text-text">{t('cron.list.title')}</h3></div>
         {loading ? <div className="px-4 py-10 text-center text-sm text-text-muted">{t('cron.loading')}</div> : jobs.length === 0 ? <div className="px-4 py-10 text-center text-sm text-text-muted">{t('cron.empty')}</div> : <div className="divide-y divide-border-subtle">{orderedJobs.map((job) => {
           const busy = actionJobId === job.id;
@@ -506,7 +506,7 @@ export function CronRoute() {
             <div className="flex w-fit self-end flex-wrap items-center gap-1.5 xl:self-auto xl:justify-end"><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.detail')} aria-label={t('cron.actions.detail')} onClick={() => openDetail(job)}>{detailLoading && selectedJob?.id === job.id ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}</ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.edit')} aria-label={t('cron.actions.edit')} onClick={() => setEditingJob(job)}><Pencil className="h-4 w-4" /></ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.run')} aria-label={t('cron.actions.run')} loading={busy} onClick={() => runAction(job, 'run')}><Play className="h-4 w-4" /></ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={paused ? t('cron.actions.resume') : t('cron.actions.pause')} aria-label={paused ? t('cron.actions.resume') : t('cron.actions.pause')} loading={busy} onClick={() => runAction(job, paused ? 'resume' : 'pause')}>{paused ? <RotateCcw className="h-4 w-4" /> : <Pause className="h-4 w-4" />}</ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="danger" title={t('cron.actions.delete')} aria-label={t('cron.actions.delete')} loading={busy} onClick={() => runAction(job, 'delete')}><Trash2 className="h-4 w-4" /></ButtonAdapter></div>
           </div>;
         })}</div>}
-      </Card>
+      </CardAdapter>
       {selectedJob ? <CronDetailModal job={selectedJob} onClose={() => setSelectedJob(null)} /> : null}
       {editingJob !== undefined ? <CronFormModal job={editingJob} onClose={() => setEditingJob(undefined)} onSaved={saveJob} /> : null}
     </div>

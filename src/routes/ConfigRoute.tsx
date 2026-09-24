@@ -2,7 +2,7 @@ import { useI18n } from '../lib/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FilePenLine, Hash, Search, Server, Settings2 } from 'lucide-react';
 import { parse as parseYaml, parseDocument, stringify as stringifyYaml } from 'yaml';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
@@ -559,7 +559,7 @@ export function ConfigRoute() {
         )}
       />
 
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <div className="grid grid-cols-2 gap-2.5 p-3 sm:gap-3 sm:p-4 xl:grid-cols-4">
           <MetricCard
             icon={FilePenLine}
@@ -590,7 +590,7 @@ export function ConfigRoute() {
             color={dirty ? 'text-amber-400' : 'text-emerald-400'}
           />
         </div>
-      </Card>
+      </CardAdapter>
 
       <HonchoSettingsPanel />
 
@@ -624,7 +624,7 @@ export function ConfigRoute() {
       </div>
 
       {editorMode === 'yaml' ? (
-        <Card padding="none" className="!border-0">
+        <CardAdapter padding="none" className="!border-0">
           <div className="flex flex-col gap-2 border-b border-border px-4 pb-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <span className="eyebrow">{t('config.editor')}</span>
@@ -648,9 +648,9 @@ export function ConfigRoute() {
               {yamlError ? `${t('config.yamlInvalid')}: ${yamlError}` : t('config.yamlValid')}
             </p>
           </div>
-        </Card>
+        </CardAdapter>
       ) : (
-        <Card padding="none" className="!border-0">
+        <CardAdapter padding="none" className="!border-0">
           <div className="flex flex-col gap-2 border-b border-border px-4 pb-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <span className="eyebrow">{t('config.schemaDrivenForm')}</span>
@@ -681,7 +681,7 @@ export function ConfigRoute() {
           </div>
 
           <div className="grid min-w-0 grid-cols-1 gap-4 p-3 sm:p-4 xl:grid-cols-[240px_minmax(0,1fr)]">
-            <Card className="h-fit min-w-0 !border-0 xl:sticky xl:top-16" padding="none">
+            <CardAdapter className="h-fit min-w-0 !border-0 xl:sticky xl:top-16" padding="none">
               <div className="border-b border-border px-3 py-2 text-xs font-semibold text-text">{t('config.sectionsNav')}</div>
               <div className="flex max-w-full flex-nowrap gap-1 overflow-x-auto p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden xl:flex-col xl:overflow-visible">
                 {visibleFormSections.map(([sectionKey]) => {
@@ -700,7 +700,7 @@ export function ConfigRoute() {
                   );
                 })}
               </div>
-            </Card>
+            </CardAdapter>
 
             <div className="flex min-w-0 flex-col gap-3">
               {visibleFormSections.length === 0 ? (
@@ -733,7 +733,7 @@ export function ConfigRoute() {
               })}
             </div>
           </div>
-        </Card>
+        </CardAdapter>
       )}
 
       <div className="config-action-bar sticky bottom-3 z-30 flex min-w-0 shrink-0 flex-col gap-2 overflow-hidden rounded-xl border border-border-subtle bg-surface/95 p-3 backdrop-blur sm:flex-row sm:items-center sm:justify-between">

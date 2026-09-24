@@ -1,7 +1,7 @@
 import { useI18n } from '../../lib/i18n';
 import { useMissionControl } from '../../lib/mission-control-store';
 import { BadgeAdapter } from '../mcui-adapters/BadgeAdapter';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { Zap } from 'lucide-react';
 
 const STATUS_LABELS: Record<string, string> = {

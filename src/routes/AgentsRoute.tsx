@@ -2,7 +2,7 @@ import { useI18n } from '../lib/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Activity, Bot, Clock3, Gauge, GitBranch, ListTree, RefreshCw } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { Modal } from '../components/Modal';
 import { PageHeader } from '../components/PageHeader';
@@ -43,14 +43,14 @@ function MetricCard({
   compact?: boolean;
 }) {
   return (
-    <Card className={`p-3 sm:p-4 ${compact ? 'px-2 py-2 sm:p-4' : ''}`}>
+    <CardAdapter className={`p-3 sm:p-4 ${compact ? 'px-2 py-2 sm:p-4' : ''}`}>
       <div className="flex items-center justify-between gap-2">
         <span className={`min-w-0 text-xs text-text-muted ${compact ? 'truncate text-[10px] sm:text-xs' : ''}`}>{label}</span>
         <Icon className={`h-4 w-4 shrink-0 text-text-subtle ${compact ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : ''}`} />
       </div>
       <p className={`mt-2 text-lg font-semibold text-text tabular-nums ${compact ? 'mt-1 text-sm sm:mt-2 sm:text-lg' : ''}`}>{value}</p>
       <p className={`mt-1 text-xs text-text-subtle ${compact ? 'hidden sm:block' : ''}`}>{hint}</p>
-    </Card>
+    </CardAdapter>
   );
 }
 
@@ -827,7 +827,7 @@ export function AgentsRoute() {
   return (
     <div ref={containerRef} className="route-page-scroll flex min-w-0 flex-col gap-6 h-full overflow-x-hidden overflow-y-auto">
       <PullToReloadIndicator state={pullState} />
-      <Card padding="none">
+      <CardAdapter padding="none">
         <PageHeader
           eyebrow={t('nav.agents')}
           title={t('agents.title')}
@@ -837,9 +837,9 @@ export function AgentsRoute() {
             <RefreshCw size={13} className={refreshing ? 'animate-spin' : ''} /><span className="hidden sm:inline">{t('common.refresh')}</span>
           </button>}
         />
-      </Card>
+      </CardAdapter>
 
-      <Card padding="none">
+      <CardAdapter padding="none">
         <div className="px-4 pt-1 sm:pt-0">
           <span className="eyebrow">{t('agents.statsTitle')}</span>
         </div>
@@ -873,8 +873,8 @@ export function AgentsRoute() {
             hint={t('agents.trackedSessionsHint')}
           />
         </div>
-      </Card>
-      <Card padding="none">
+      </CardAdapter>
+      <CardAdapter padding="none">
         <div className="border-b border-border-subtle">
           <div className="flex min-w-0 flex-col gap-3 px-4 py-4">
             <div className="flex min-w-0 items-start justify-between gap-3">
@@ -1262,7 +1262,7 @@ export function AgentsRoute() {
             </div>
           ) : null}
         </div>
-      </Card>
+      </CardAdapter>
 
       <Modal
         open={Boolean(selectedEvent)}

@@ -16,7 +16,7 @@ import {
   SlidersHorizontal,
   Workflow,
 } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
@@ -124,14 +124,14 @@ function formatDuration(startedAt: number | null, endedAt: number | null, lastAc
 
 function MetricCard({ icon: Icon, label, value, hint, className = '', compact = false }: { icon: React.ElementType; label: string; value: string; hint: string; className?: string; compact?: boolean }) {
   return (
-    <Card className={`!border-0 p-3 sm:p-4 ${compact ? 'px-2 py-2 sm:p-4' : ''} ${className}`}>
+    <CardAdapter className={`!border-0 p-3 sm:p-4 ${compact ? 'px-2 py-2 sm:p-4' : ''} ${className}`}>
       <div className="flex items-center justify-between">
         <span className={`text-xs text-text-muted ${compact ? 'truncate text-[10px] sm:text-xs' : ''}`}>{label}</span>
         <Icon className={`h-4 w-4 text-text-subtle ${compact ? 'h-3.5 w-3.5 sm:h-4 sm:w-4' : ''}`} />
       </div>
       <p className={`mt-2 text-base font-semibold text-text tabular-nums sm:text-lg ${compact ? 'mt-1 text-sm sm:mt-2 sm:text-lg' : ''}`}>{value}</p>
       <p className={`mt-1 text-xs text-text-subtle ${compact ? 'hidden sm:block' : ''}`}>{hint}</p>
-    </Card>
+    </CardAdapter>
   );
 }
 
@@ -472,7 +472,7 @@ export function SessionsRoute() {
   return (
     <div ref={containerRef} className="route-page-scroll flex flex-col gap-4 sm:gap-5">
       <PullToReloadIndicator state={pullState} />
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <PageHeader
           eyebrow={t('nav.sessions')}
           title={t('sessions.controlTitle')}
@@ -490,10 +490,10 @@ export function SessionsRoute() {
           <MetricCard icon={Bot} label={t('sessions.agents')} value={String(activeAgents)} hint={t('sessions.active')} className="hidden sm:block" />
           <MetricCard icon={DollarSign} label={t('sessions.cost')} value={formatCost(totalCost)} hint={t('sessions.tokensCount', { count: formatTokens(totalTokens) })} className="hidden sm:block" />
         </div>
-      </Card>
+      </CardAdapter>
 
       <div className="flex min-h-0 flex-1 flex-col gap-4">
-        <Card padding="none" className="min-w-0 !border-0" id="sessions-results" aria-busy={loading}>
+        <CardAdapter padding="none" className="min-w-0 !border-0" id="sessions-results" aria-busy={loading}>
           <div className="p-3">
             <div role="tablist" aria-label={t('sessions.viewTabs')} className="flex flex-nowrap gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0">
               {(['all', 'live', 'conversation', 'automation', 'system'] as SessionTab[]).map((value) => (
@@ -544,7 +544,7 @@ export function SessionsRoute() {
             return <SessionSection key={category} category={category} sessions={sessions} collapsed={groupsForcedOpen ? false : collapsedGroups.has(category)} onToggle={groupsForcedOpen ? () => undefined : () => toggleGroup(category)} selectedId={selectedSession?.sessionId ?? null} onInspect={setSelectedSession} onCopy={copySessionId} />;
           })}
           {hasMore ? <div className="p-3"><button type="button" onClick={() => void loadMore()} disabled={loadingMore} className="w-full rounded-md py-2 text-xs font-medium text-accent hover:bg-surface-sunken disabled:opacity-50">{loadingMore ? t('sessions.loading') : t('sessions.loadMoreOf', { loaded: loadedItems.length, total: filteredTotal })}</button></div> : null}
-        </Card>
+        </CardAdapter>
         {selectedSession ? <SessionDetails session={selectedSession} onClose={() => setSelectedSession(null)} onCopy={copySessionId} /> : null}
       </div>
     </div>

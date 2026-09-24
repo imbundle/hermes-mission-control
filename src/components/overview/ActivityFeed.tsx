@@ -2,7 +2,7 @@ import { useI18n } from '../../lib/i18n';
 import { useRef } from 'react';
 import { Activity, Bot, User, Wrench } from 'lucide-react';
 import type { MissionControlSnapshot } from '../../lib/hermes-api';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { formatRelativeTime } from '../../lib/format';
 
 type Signal = MissionControlSnapshot['recentSignals'][number];
@@ -28,7 +28,7 @@ export function ActivityFeed({ signals }: { signals: Signal[] }) {
   const listRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-border-subtle">
         <div className="flex flex-col gap-0.5">
           <span className="eyebrow">{t('activity.eyebrow')}</span>
@@ -76,6 +76,6 @@ export function ActivityFeed({ signals }: { signals: Signal[] }) {
           </div>
         )}
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

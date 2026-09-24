@@ -10,7 +10,7 @@ import {
 } from '../lib/honcho-settings';
 import { Badge } from './ui/Badge';
 import { ButtonAdapter } from './mcui-adapters/ButtonAdapter';
-import { Card } from './ui/Card';
+import { CardAdapter } from './mcui-adapters/CardAdapter';
 
 function readinessVariant(readiness: HonchoProfileStatus['readiness']) {
   if (readiness === 'ready') return 'positive' as const;
@@ -78,7 +78,7 @@ export function HonchoSettingsPanel() {
   if (status && !status.providerInstalled) return null;
 
   return (
-    <Card padding="none" className="!border-0">
+    <CardAdapter padding="none" className="!border-0">
       <div className="flex flex-col gap-3 border-b border-border px-4 py-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 items-start gap-3">
           <div className="rounded-lg border border-violet-400/20 bg-violet-400/10 p-2 text-violet-300">
@@ -215,6 +215,6 @@ export function HonchoSettingsPanel() {
           </div>
         </div>
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

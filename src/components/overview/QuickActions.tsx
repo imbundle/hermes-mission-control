@@ -2,7 +2,7 @@ import { useI18n } from '../../lib/i18n';
 import { RefreshCw, Rocket, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { MissionControlGatewayAction } from '../../lib/mission-control-store';
-import { Card } from '../ui/Card';
+import { CardAdapter } from '../mcui-adapters/CardAdapter';
 import { ButtonAdapter } from '../mcui-adapters/ButtonAdapter';
 
 type QuickActionsProps = {
@@ -22,7 +22,7 @@ export function QuickActions({
   const restartAction = gatewayActions.find((a) => a.id === 'restart-gateway');
 
   return (
-    <Card padding="none">
+    <CardAdapter padding="none">
       <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-border-subtle">
         <div className="flex flex-col gap-0.5">
           <span className="eyebrow">{t('overview.controls')}</span>
@@ -66,6 +66,6 @@ export function QuickActions({
           Settings
         </ButtonAdapter>
       </div>
-    </Card>
+    </CardAdapter>
   );
 }

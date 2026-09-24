@@ -1,7 +1,7 @@
 import { useI18n } from '../lib/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DollarSign, Layers, Zap, TrendingUp, RefreshCw, ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
 import { loadSessionsUsage, type MissionControlSessionsUsageSnapshot } from '../lib/hermes-api';
@@ -202,7 +202,7 @@ export function UsageRoute() {
       />
 
       {/* Summary metrics */}
-      <Card padding="none">
+      <CardAdapter padding="none">
         {totals ? (
           <div className="grid grid-cols-2 gap-2.5 p-3 sm:gap-3 sm:p-4 lg:grid-cols-4">
             <StatCard
@@ -239,11 +239,11 @@ export function UsageRoute() {
         ) : (
           <div className="p-8 text-center text-sm text-text-muted">{t('usage.noData')}</div>
         )}
-      </Card>
+      </CardAdapter>
 
       {/* Per-model breakdown */}
       {sorted.length > 0 ? (
-        <Card padding="none">
+        <CardAdapter padding="none">
           <div className="flex items-center justify-between gap-3 px-4 pb-3 pt-4">
             <div className="min-w-0">
               <span className="eyebrow">{t('usage.breakdown')}</span>
@@ -382,7 +382,7 @@ export function UsageRoute() {
               ) : null}
             </table>
           </div>
-        </Card>
+        </CardAdapter>
       ) : null}
     </div>
   );

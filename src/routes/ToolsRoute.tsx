@@ -1,7 +1,7 @@
 import { useI18n } from '../lib/i18n';
 import { useRef } from 'react';
 import { Blocks, CheckCircle2, Hammer, KeyRound } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { PageHeader } from '../components/PageHeader';
 import { useMissionControl } from '../lib/mission-control-store';
@@ -55,7 +55,7 @@ export function ToolsRoute() {
     <div ref={containerRef} className="route-page-scroll flex h-full flex-col gap-5 overflow-y-auto sm:gap-6">
       <PullToReloadIndicator state={pullState} />
 
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <PageHeader
           eyebrow={t('tools.eyebrow')}
           title={t('tools.title')}
@@ -100,9 +100,9 @@ export function ToolsRoute() {
             color="text-violet-400"
           />
         </div>
-      </Card>
+      </CardAdapter>
 
-      <Card padding="none" className="!border-0">
+      <CardAdapter padding="none" className="!border-0">
         <div className="flex items-center justify-between gap-3 border-b border-border-subtle/60 px-4 pb-3 pt-4">
           <div className="min-w-0">
             <span className="eyebrow">{t('tools.toolsets')}</span>
@@ -144,7 +144,7 @@ export function ToolsRoute() {
             <p className="p-4 text-sm text-text-muted">{t('tools.notFound')}</p>
           )}
         </div>
-      </Card>
+      </CardAdapter>
     </div>
   );
 }

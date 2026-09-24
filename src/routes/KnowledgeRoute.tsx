@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
-import { Card } from '../components/ui/Card';
+import { CardAdapter } from '../components/mcui-adapters/CardAdapter';
 import { Badge } from '../components/ui/Badge';
 import { Modal } from '../components/Modal';
 import { PageHeader } from '../components/PageHeader';
@@ -156,7 +156,7 @@ export function KnowledgeRoute() {
       />
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
-        <Card padding="none" className="xl:col-span-1">
+        <CardAdapter padding="none" className="xl:col-span-1">
           <div className="px-4 pt-4 pb-3 border-b border-border-subtle flex items-center justify-between">
             <div className="flex flex-col gap-0.5">
               <span className="eyebrow">{t('knowledge.files')}</span>
@@ -200,9 +200,9 @@ export function KnowledgeRoute() {
               </div>
             ))}
           </div>
-        </Card>
+        </CardAdapter>
 
-        <Card padding="none" className="xl:col-span-2 hidden xl:block">
+        <CardAdapter padding="none" className="xl:col-span-2 hidden xl:block">
           <div className="px-4 pt-4 pb-3 border-b border-border-subtle">
             <span className="eyebrow">{t('knowledge.detail')}</span>
             <h3 className="text-sm font-semibold text-text mt-0.5">{selectedItem.title}</h3>
@@ -227,13 +227,13 @@ export function KnowledgeRoute() {
 
             <p className="text-sm text-text-muted">{selectedItem.excerpt || t('knowledge.noExcerpt')}</p>
 
-            <Card variant="sunken" className="p-3 max-h-[460px] overflow-y-auto">
+            <CardAdapter variant="sunken" className="p-3 max-h-[460px] overflow-y-auto">
               {contentLoading ? <p className="text-xs text-text-subtle mb-2">{t('knowledge.loadingFull')}</p> : null}
               {contentError ? <p className="text-xs text-warning mb-2">{contentError}</p> : null}
               <MarkdownDetail content={markdownContent} />
-            </Card>
+            </CardAdapter>
           </div>
-        </Card>
+        </CardAdapter>
       </div>
 
       <Modal
@@ -260,11 +260,11 @@ export function KnowledgeRoute() {
 
           <p className="text-sm text-text-muted">{selectedItem.excerpt || t('knowledge.noExcerpt')}</p>
 
-          <Card variant="sunken" className="p-3 max-h-[56vh] overflow-y-auto">
+          <CardAdapter variant="sunken" className="p-3 max-h-[56vh] overflow-y-auto">
             {contentLoading ? <p className="text-xs text-text-subtle mb-2">{t('knowledge.loadingFull')}</p> : null}
             {contentError ? <p className="text-xs text-warning mb-2">{contentError}</p> : null}
             <MarkdownDetail content={markdownContent} />
-          </Card>
+          </CardAdapter>
         </div>
       </Modal>
     </div>
