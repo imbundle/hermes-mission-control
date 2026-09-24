@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
 import { PullToReloadIndicator } from '../components/PullToReloadIndicator';
 import { PageHeader } from '../components/PageHeader';
@@ -232,10 +232,10 @@ function CronFormModal({
       onClose={onClose}
       footer={
         <div className="flex items-center justify-end gap-2">
-          <Button size="sm" variant="ghost" onClick={onClose}>{t('common.cancel')}</Button>
-          <Button size="sm" variant="primary" loading={saving} onClick={submit}>
+          <ButtonAdapter size="sm" variant="ghost" onClick={onClose}>{t('common.cancel')}</ButtonAdapter>
+          <ButtonAdapter size="sm" variant="primary" loading={saving} onClick={submit}>
             {job ? t('cron.actions.save') : t('cron.actions.create')}
-          </Button>
+          </ButtonAdapter>
         </div>
       }
     >
@@ -452,7 +452,7 @@ export function CronRoute() {
         description={t('cron.subtitle')}
         actions={(
           <div className="flex items-center gap-2">
-            <Button
+            <ButtonAdapter
               size="sm"
               variant="ghost"
               iconOnly
@@ -462,7 +462,7 @@ export function CronRoute() {
               aria-label={t('common.refresh')}
               title={t('common.refresh')}
             />
-            <Button
+            <ButtonAdapter
               size="sm"
               variant="primary"
               iconOnly
@@ -473,7 +473,7 @@ export function CronRoute() {
               title={t('cron.actions.new')}
             >
               <span className="hidden sm:inline">{t('cron.actions.new')}</span>
-            </Button>
+            </ButtonAdapter>
           </div>
         )}
       />
@@ -503,7 +503,7 @@ export function CronRoute() {
           return <div key={job.id} className="cron-job-row flex flex-col gap-3 px-4 py-4 xl:flex-row xl:items-center xl:gap-5">
             <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h4 className="truncate text-sm font-medium text-text">{job.label}</h4><Badge variant={statusVariant(job)}>{statusLabel(job, t)}</Badge><Badge variant="default">{job.profile || 'default'}</Badge></div><p className="mt-1 truncate font-mono text-xs text-text-muted">{job.scheduleDisplay}</p><p className="mt-1 text-xs text-text-subtle">{job.id}</p></div>
             <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-text-muted sm:grid-cols-4 xl:w-[30rem]"><div><span className="block text-text-subtle">{t('cron.list.next')}</span><span>{formatRelative(job.nextRunAt)}</span></div><div className="text-right sm:text-left"><span className="block text-text-subtle">{t('cron.list.last')}</span><span>{formatRelative(job.lastRunAt)}</span></div><div><span className="block text-text-subtle">{t('cron.list.delivery')}</span><span className="max-w-28 truncate block">{job.deliver || 'local'}</span></div><div className="text-right sm:text-left"><span className="block text-text-subtle">{t('cron.list.mode')}</span><span>{job.noAgent ? t('cron.status.script') : t('cron.status.agent')}</span></div></div>
-            <div className="flex w-fit self-end flex-wrap items-center gap-1.5 xl:self-auto xl:justify-end"><Button iconOnly size="sm" variant="ghost" title={t('cron.actions.detail')} aria-label={t('cron.actions.detail')} onClick={() => openDetail(job)}>{detailLoading && selectedJob?.id === job.id ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}</Button><Button iconOnly size="sm" variant="ghost" title={t('cron.actions.edit')} aria-label={t('cron.actions.edit')} onClick={() => setEditingJob(job)}><Pencil className="h-4 w-4" /></Button><Button iconOnly size="sm" variant="ghost" title={t('cron.actions.run')} aria-label={t('cron.actions.run')} loading={busy} onClick={() => runAction(job, 'run')}><Play className="h-4 w-4" /></Button><Button iconOnly size="sm" variant="ghost" title={paused ? t('cron.actions.resume') : t('cron.actions.pause')} aria-label={paused ? t('cron.actions.resume') : t('cron.actions.pause')} loading={busy} onClick={() => runAction(job, paused ? 'resume' : 'pause')}>{paused ? <RotateCcw className="h-4 w-4" /> : <Pause className="h-4 w-4" />}</Button><Button iconOnly size="sm" variant="danger" title={t('cron.actions.delete')} aria-label={t('cron.actions.delete')} loading={busy} onClick={() => runAction(job, 'delete')}><Trash2 className="h-4 w-4" /></Button></div>
+            <div className="flex w-fit self-end flex-wrap items-center gap-1.5 xl:self-auto xl:justify-end"><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.detail')} aria-label={t('cron.actions.detail')} onClick={() => openDetail(job)}>{detailLoading && selectedJob?.id === job.id ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}</ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.edit')} aria-label={t('cron.actions.edit')} onClick={() => setEditingJob(job)}><Pencil className="h-4 w-4" /></ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={t('cron.actions.run')} aria-label={t('cron.actions.run')} loading={busy} onClick={() => runAction(job, 'run')}><Play className="h-4 w-4" /></ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="ghost" title={paused ? t('cron.actions.resume') : t('cron.actions.pause')} aria-label={paused ? t('cron.actions.resume') : t('cron.actions.pause')} loading={busy} onClick={() => runAction(job, paused ? 'resume' : 'pause')}>{paused ? <RotateCcw className="h-4 w-4" /> : <Pause className="h-4 w-4" />}</ButtonAdapter><ButtonAdapter iconOnly size="sm" variant="danger" title={t('cron.actions.delete')} aria-label={t('cron.actions.delete')} loading={busy} onClick={() => runAction(job, 'delete')}><Trash2 className="h-4 w-4" /></ButtonAdapter></div>
           </div>;
         })}</div>}
       </Card>

@@ -25,7 +25,7 @@ import { useLastRoutePersistence } from '../lib/last-route';
 import { readLocalLastRoom, writeLocalLastRoom, claimLastRoomPointer, fetchServerLastRoom } from '../lib/room-persistence';
 import { clearNewChatParams } from '../lib/chat-session-params';
 import { recordReloadDiagnostic } from '../lib/reload-diagnostics';
-import { Button } from './ui/Button';
+import { ButtonAdapter } from './mcui-adapters/ButtonAdapter';
 import { PluginRegistry } from '../core/plugins/registry';
 import type { MCPluginNavItem } from '../core/plugins/types';
 import { resolveIcon } from '../lib/icons';
@@ -276,7 +276,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
           <div className="side-menu-head">
             <div className="side-menu-head-top">
               <p className="eyebrow">{t('nav.missionControl')}</p>
-              <Button
+              <ButtonAdapter
                 variant="ghost"
                 size="md"
                 icon={sideCollapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}
@@ -342,7 +342,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
             <PushToggle />
             <ThemeSelector />
             <LanguageSwitcher />
-            <Button
+            <ButtonAdapter
               variant="secondary"
               size="md"
               icon={<LockKeyhole size={16} />}
@@ -353,7 +353,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
               title={t('auth.lock')}
             >
               <span className="lock-label">{t('auth.lock')}</span>
-            </Button>
+            </ButtonAdapter>
           </div>
         </aside>
 
@@ -369,7 +369,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
         <section className="workspace-column">
           <header className={`card workspace-bar ${isOverviewRoute ? 'is-overview' : ''}`}>
             <div className="workspace-title-wrap">
-              <Button
+              <ButtonAdapter
                 variant="secondary"
                 size="md"
                 icon={<Menu size={17} />}
@@ -385,7 +385,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
                 <h1>{activeNav ? (activeNav.label.includes('.') ? t(activeNav.label) : activeNav.label) : t('nav.overview')}</h1>
               </div>
             </div>
-            <Button
+            <ButtonAdapter
               ref={chatButtonRef}
               variant="secondary"
               size="md"
@@ -402,7 +402,7 @@ export function MissionControlShell({ registry, navItems: runtimeNavItems = [] }
                 {presence.phase === 'running' ? t('chat.workingCompact') : presence.phase === 'completed' ? t('chat.doneCompact') : presence.phase === 'waiting' ? t('chat.needsYouCompact') : t('chat.button')}
               </span>
               {presence.unreadCount > 0 ? <span className="chat-unread-badge">{presence.unreadCount > 9 ? '9+' : presence.unreadCount}</span> : null}
-            </Button>
+            </ButtonAdapter>
           </header>
 
           <section className={`route-stage ${isOverviewRoute ? 'is-overview' : ''}`}>

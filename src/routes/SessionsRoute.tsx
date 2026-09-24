@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
 import { formatRelativeTime, formatTimestamp } from '../lib/format';
 import { useMissionControl } from '../lib/mission-control-store';
@@ -153,7 +153,7 @@ function SessionActionButton({
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
   className?: string;
 }) {
-  return <Button type="button" size="sm" variant={variant} icon={icon} className={className} onClick={onClick} aria-label={label} title={label}>{label}</Button>;
+  return <ButtonAdapter type="button" size="sm" variant={variant} icon={icon} className={className} onClick={onClick} aria-label={label} title={label}>{label}</ButtonAdapter>;
 }
 
 function sessionResumeUrl(sessionId: string, sessionKey?: string | null, profile?: string | null): string {
@@ -509,7 +509,7 @@ export function SessionsRoute() {
               </label>
               <div className="mt-2 flex items-center justify-between md:hidden">
                 <span className="text-[11px] text-text-subtle">{activeFilterCount ? t('sessions.activeFilters', { count: activeFilterCount, suffix: locale === 'it' ? (activeFilterCount > 1 ? 'i' : 'o') : activeFilterCount > 1 ? 's' : '' }) : t('sessions.noFilters')}</span>
-                <Button type="button" size="sm" variant="ghost" icon={<SlidersHorizontal size={14} />} className="!min-w-0 !border-0 !bg-transparent !px-2 text-xs text-text-muted hover:!bg-surface-sunken hover:!text-text" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}>{filtersOpen ? t('sessions.hideFilters') : t('sessions.filters')}</Button>
+                <ButtonAdapter type="button" size="sm" variant="ghost" icon={<SlidersHorizontal size={14} />} className="!min-w-0 !border-0 !bg-transparent !px-2 text-xs text-text-muted hover:!bg-surface-sunken hover:!text-text" aria-expanded={filtersOpen} onClick={() => setFiltersOpen((open) => !open)}>{filtersOpen ? t('sessions.hideFilters') : t('sessions.filters')}</ButtonAdapter>
               </div>
               <div className={`${filtersOpen ? 'grid' : 'hidden'} mt-2 grid-cols-2 gap-2 md:mt-0 md:flex md:min-w-0 md:flex-1 md:gap-2`}>
                 <select value={filters.status} onChange={(event) => updateView({ status: event.target.value as SessionViewFilters['status'] })} className="min-w-0 w-full rounded-md bg-surface h-9 px-3 py-0 text-xs text-text-muted outline-none focus:ring-1 focus:ring-accent/40 md:flex-1" aria-label={t('sessions.allStatuses')}>

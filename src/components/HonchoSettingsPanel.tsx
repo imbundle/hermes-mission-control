@@ -9,7 +9,7 @@ import {
   type HonchoStatus,
 } from '../lib/honcho-settings';
 import { Badge } from './ui/Badge';
-import { Button } from './ui/Button';
+import { ButtonAdapter } from './mcui-adapters/ButtonAdapter';
 import { Card } from './ui/Card';
 
 function readinessVariant(readiness: HonchoProfileStatus['readiness']) {
@@ -94,7 +94,7 @@ export function HonchoSettingsPanel() {
             <p className="mt-1 max-w-3xl text-xs leading-relaxed text-text-muted">{t('honcho.description')}</p>
           </div>
         </div>
-        <Button
+        <ButtonAdapter
           type="button"
           size="sm"
           variant="ghost"
@@ -103,7 +103,7 @@ export function HonchoSettingsPanel() {
           loading={loading}
         >
           {t('honcho.refresh')}
-        </Button>
+        </ButtonAdapter>
       </div>
 
       {error ? (
@@ -136,7 +136,7 @@ export function HonchoSettingsPanel() {
                 onChange={(event) => setPeerName(event.target.value)}
                 className="h-11 min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 text-sm text-text outline-none focus:border-accent"
               />
-              <Button
+              <ButtonAdapter
                 type="button"
                 variant="primary"
                 loading={saving}
@@ -144,7 +144,7 @@ export function HonchoSettingsPanel() {
                 onClick={() => void configure()}
               >
                 {status?.identityReady ? t('honcho.updateIdentity') : t('honcho.configureIdentity')}
-              </Button>
+              </ButtonAdapter>
             </div>
             <p className="mt-2 text-[11px] leading-relaxed text-warning">{t('honcho.singleUserWarning')}</p>
           </div>

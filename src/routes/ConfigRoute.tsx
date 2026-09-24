@@ -4,7 +4,7 @@ import { FilePenLine, Hash, Search, Server, Settings2 } from 'lucide-react';
 import { parse as parseYaml, parseDocument, stringify as stringifyYaml } from 'yaml';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
 import { useMissionControl } from '../lib/mission-control-store';
 import { usePullToReload } from '../hooks/usePullToReload';
@@ -597,7 +597,7 @@ export function ConfigRoute() {
       <div className="config-editor-mode-bar sticky top-0 z-20 -mx-1 px-2 py-2 sm:-mx-0 sm:px-3">
         <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div role="tablist" aria-label={t('config.editor')} className="flex min-h-11 shrink-0 flex-nowrap gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0">
-            <Button
+            <ButtonAdapter
               className="shrink-0 whitespace-nowrap"
               type="button"
               role="tab"
@@ -607,8 +607,8 @@ export function ConfigRoute() {
               onClick={() => setEditorMode('form')}
             >
               {t('config.formMode')}
-            </Button>
-            <Button
+            </ButtonAdapter>
+            <ButtonAdapter
               className="shrink-0 whitespace-nowrap"
               type="button"
               role="tab"
@@ -618,7 +618,7 @@ export function ConfigRoute() {
               onClick={() => setEditorMode('yaml')}
             >
               {t('config.yamlMode')}
-            </Button>
+            </ButtonAdapter>
           </div>
         </div>
       </div>
@@ -672,11 +672,11 @@ export function ConfigRoute() {
               />
             </label>
             <div className="flex shrink-0 items-center gap-2 overflow-x-auto">
-              <Button type="button" size="sm" variant={showChangedOnly ? 'primary' : 'secondary'} onClick={() => setShowChangedOnly((previous) => !previous)}>
+              <ButtonAdapter type="button" size="sm" variant={showChangedOnly ? 'primary' : 'secondary'} onClick={() => setShowChangedOnly((previous) => !previous)}>
                 {showChangedOnly ? t('config.showAllFields') : t('config.showChangedOnly')}
-              </Button>
-              <Button type="button" size="sm" variant="ghost" onClick={() => setAllSectionsOpen(true)}>{t('config.expandAll')}</Button>
-              <Button type="button" size="sm" variant="ghost" onClick={() => setAllSectionsOpen(false)}>{t('config.collapseAll')}</Button>
+              </ButtonAdapter>
+              <ButtonAdapter type="button" size="sm" variant="ghost" onClick={() => setAllSectionsOpen(true)}>{t('config.expandAll')}</ButtonAdapter>
+              <ButtonAdapter type="button" size="sm" variant="ghost" onClick={() => setAllSectionsOpen(false)}>{t('config.collapseAll')}</ButtonAdapter>
             </div>
           </div>
 
@@ -741,15 +741,15 @@ export function ConfigRoute() {
           {status ?? (dirty ? t('config.unsavedChanges') : t('config.inSync'))}
         </p>
         <div className="config-action-bar-buttons -mx-1 flex min-w-0 max-w-[calc(100%+0.5rem)] shrink-0 flex-nowrap gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:max-w-none sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
-          <Button className="shrink-0 whitespace-nowrap" type="button" variant="primary" disabled={saving || !dirty || Boolean(yamlError)} loading={saving} onClick={() => void handleSave()}>
+          <ButtonAdapter className="shrink-0 whitespace-nowrap" type="button" variant="primary" disabled={saving || !dirty || Boolean(yamlError)} loading={saving} onClick={() => void handleSave()}>
             {t('config.save')}
-          </Button>
-          <Button className="shrink-0 whitespace-nowrap" type="button" variant="secondary" onClick={() => void handleReload()} disabled={saving}>
+          </ButtonAdapter>
+          <ButtonAdapter className="shrink-0 whitespace-nowrap" type="button" variant="secondary" onClick={() => void handleReload()} disabled={saving}>
             {t('config.reload')}
-          </Button>
-          <Button className="shrink-0 whitespace-nowrap" type="button" variant="ghost" onClick={handleReset} disabled={saving || !dirty}>
+          </ButtonAdapter>
+          <ButtonAdapter className="shrink-0 whitespace-nowrap" type="button" variant="ghost" onClick={handleReset} disabled={saving || !dirty}>
             {t('config.resetDraft')}
-          </Button>
+          </ButtonAdapter>
         </div>
       </div>
     </div>

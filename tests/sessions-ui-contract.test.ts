@@ -25,7 +25,7 @@ test('session rows and detail surfaces are fully borderless', () => {
 });
 
 test('session actions use shared full-size buttons', () => {
-  assert.match(source, /import \{ Button \} from ['"]\.\.\/components\/ui\/Button['"];?/);
+  assert.match(source, /import \{ ButtonAdapter \} from ['"]\.\.\/components\/mcui-adapters\/ButtonAdapter['"];?/);
   assert.match(source, /t\('sessions\.resumeChat'\)/);
   assert.match(source, /t\('sessions\.trace'\)/);
   assert.match(source, /t\('sessions\.searchAction'\)/);

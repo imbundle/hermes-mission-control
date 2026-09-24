@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { ToggleSwitch } from '../components/ui/ToggleSwitch';
 import { Modal } from '../components/Modal';
 import { PageHeader } from '../components/PageHeader';
@@ -122,14 +122,14 @@ function SkillDetailPanel({
             <span className="text-xs text-text-subtle">
               {isToggling ? t('skills.detail.updating') : isEnabled ? t('skills.detail.enabled') : t('skills.detail.disabled')}
             </span>
-            <Button
+            <ButtonAdapter
               size="sm"
               variant={isEnabled ? 'secondary' : 'primary'}
               onClick={onToggle}
               disabled={isToggling}
             >
               {isEnabled ? t('skills.detail.disable') : t('skills.detail.enable')}
-            </Button>
+            </ButtonAdapter>
           </div>
         ) : null
       }
@@ -350,12 +350,12 @@ export function SkillsRoute() {
       </Card>
 
       <div role="tablist" aria-label={t('skills.title')} className="flex min-h-11 shrink-0 flex-nowrap gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible sm:pb-0">
-        <Button type="button" role="tab" aria-selected={activeTab === 'installed'} size="sm" variant={activeTab === 'installed' ? 'primary' : 'secondary'} className="shrink-0 whitespace-nowrap" onClick={() => setActiveTab('installed')}>
+        <ButtonAdapter type="button" role="tab" aria-selected={activeTab === 'installed'} size="sm" variant={activeTab === 'installed' ? 'primary' : 'secondary'} className="shrink-0 whitespace-nowrap" onClick={() => setActiveTab('installed')}>
           {t('skills.installed')}
-        </Button>
-        <Button type="button" role="tab" aria-selected={activeTab === 'catalog'} size="sm" variant={activeTab === 'catalog' ? 'primary' : 'secondary'} className="shrink-0 whitespace-nowrap" onClick={() => setActiveTab('catalog')}>
+        </ButtonAdapter>
+        <ButtonAdapter type="button" role="tab" aria-selected={activeTab === 'catalog'} size="sm" variant={activeTab === 'catalog' ? 'primary' : 'secondary'} className="shrink-0 whitespace-nowrap" onClick={() => setActiveTab('catalog')}>
           {t('skills.catalog')}
-        </Button>
+        </ButtonAdapter>
       </div>
 
       {activeTab === 'installed' ? (
@@ -431,7 +431,7 @@ export function SkillsRoute() {
                   className="h-11 w-full min-w-0 rounded-lg border border-border bg-surface px-9 text-sm text-text outline-none focus:border-accent sm:h-9 sm:w-64"
                 />
               </label>
-              <Button
+              <ButtonAdapter
                 size="sm"
                 variant="secondary"
                 iconOnly
@@ -441,7 +441,7 @@ export function SkillsRoute() {
                 aria-label={t('skills.refresh')}
                 title={t('skills.refresh')}
                 className="shrink-0 sm:w-auto sm:min-w-0 sm:px-2.5"
-              ><span className="hidden sm:inline">{t('skills.refresh')}</span></Button>
+              ><span className="hidden sm:inline">{t('skills.refresh')}</span></ButtonAdapter>
             </div>
           </div>
 
@@ -491,7 +491,7 @@ export function SkillsRoute() {
                     </div>
                     <div className="shrink-0">
                       {installed ? <Badge variant="positive">{t('skills.installedBadge')}</Badge> : (
-                        <Button
+                        <ButtonAdapter
                           size="sm"
                           variant="primary"
                           iconOnly
@@ -501,7 +501,7 @@ export function SkillsRoute() {
                           aria-label={`${t('skills.install')}: ${skill.name}`}
                           title={t('skills.install')}
                           className="skills-install-button sm:w-auto sm:min-w-0 sm:px-2.5"
-                        ><span className="hidden sm:inline">{t('skills.install')}</span></Button>
+                        ><span className="hidden sm:inline">{t('skills.install')}</span></ButtonAdapter>
                       )}
                     </div>
                   </div>

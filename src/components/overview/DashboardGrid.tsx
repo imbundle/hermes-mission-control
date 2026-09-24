@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 import { Check, GripVertical, LayoutDashboard, RotateCcw, X } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ButtonAdapter } from '../mcui-adapters/ButtonAdapter';
 import { useI18n } from '../../lib/i18n';
 
 const STORAGE_KEY = 'mission-control-dashboard-layout:v1';
@@ -124,18 +124,18 @@ export function DashboardGrid({ widgets }: { widgets: DashboardWidget[] }) {
         </div>
         <div className="flex shrink-0 items-center gap-1.5">
           {arranging ? (
-            <Button variant="ghost" size="sm" icon={<RotateCcw className="h-3.5 w-3.5" />} onClick={reset}>
+            <ButtonAdapter variant="ghost" size="sm" icon={<RotateCcw className="h-3.5 w-3.5" />} onClick={reset}>
               Reset
-            </Button>
+            </ButtonAdapter>
           ) : null}
-          <Button
+          <ButtonAdapter
             variant={arranging ? 'primary' : 'ghost'}
             size="sm"
             icon={arranging ? <X className="h-3.5 w-3.5" /> : <GripVertical className="h-3.5 w-3.5" />}
             onClick={() => { setArranging((current) => !current); setDraggingId(null); }}
           >
             {arranging ? 'Done' : 'Arrange'}
-          </Button>
+          </ButtonAdapter>
         </div>
       </div>
 

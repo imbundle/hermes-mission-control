@@ -2,7 +2,7 @@ import { useI18n } from '../lib/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DollarSign, Layers, Zap, TrendingUp, RefreshCw, ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
 import { loadSessionsUsage, type MissionControlSessionsUsageSnapshot } from '../lib/hermes-api';
 import { useMissionControl } from '../lib/mission-control-store';
@@ -188,7 +188,7 @@ export function UsageRoute() {
         description={t('usage.description')}
         meta={totals ? t('usage.sessions', { count: totals.sessionCount }) : undefined}
         actions={(
-          <Button
+          <ButtonAdapter
             variant="ghost"
             size="sm"
             iconOnly

@@ -44,7 +44,7 @@ import { ChatComposer } from './ChatComposer';
 import { ChatTodoPlan } from './chat/ChatTodoPlan';
 import { ToolRunSummary } from './chat/ToolRunSummary';
 import { Modal } from './Modal';
-import { Button } from './ui/Button';
+import { ButtonAdapter } from './mcui-adapters/ButtonAdapter';
 import type { ChatSlashPopoverHandle } from './ChatSlashPopover';
 import type { CanvasAddonId } from '../canvas-addons/types';
 import { CANVAS_ADDONS, ADDON_INDEX } from '../canvas-addons/manifest';
@@ -2122,8 +2122,8 @@ const CanonicalChatDrawer = memo(function CanonicalChatDrawer({ open, storedToke
         onClose={() => setNewChatConfirmOpen(false)}
         footer={(
           <>
-            <Button variant="ghost" size="sm" type="button" onClick={() => setNewChatConfirmOpen(false)}>{t('kanban.cancel')}</Button>
-            <Button size="sm" type="button" onClick={() => void confirmNewChat()} disabled={newChatLoading}>{t('chatDrawer.confirmStartNew')}</Button>
+            <ButtonAdapter variant="ghost" size="sm" type="button" onClick={() => setNewChatConfirmOpen(false)}>{t('kanban.cancel')}</ButtonAdapter>
+            <ButtonAdapter size="sm" type="button" onClick={() => void confirmNewChat()} disabled={newChatLoading}>{t('chatDrawer.confirmStartNew')}</ButtonAdapter>
           </>
         )}
       >

@@ -9,10 +9,18 @@ deliberately narrow: **one pilot**, not a migration.
 | Adapter | Wraps (`@mcui/react`) | File |
 |---|---|---|
 | `BadgeAdapter` | `StatusBadge` | `src/components/mcui-adapters/BadgeAdapter.tsx` |
+| `ButtonAdapter` | `Button` | `src/components/mcui-adapters/ButtonAdapter.tsx` |
 
 `BadgeAdapter` is a thin wrapper: its `variant` prop is a 1:1 identity map onto
 `StatusBadge`'s `StatusBadgeVariant` union (`default` \| `positive` \| `warning` \| `negative`),
 passed straight through with no additional logic. No new state, no styling overrides.
+
+`ButtonAdapter` is likewise a thin wrapper, with one real behavioral guard: MC's own `Button`
+defaults `variant` to `'secondary'` while mcui's `Button` defaults to `'primary'` — the adapter
+hard-codes `'secondary'` as its own default so call sites that omit `variant` keep their current
+rendered appearance. Forwards `ref` (mcui's `Button` is `forwardRef`-wrapped; at least one call
+site, `MissionControlShell.tsx`, depends on this — caught by `tsc`, not assumed). Every other
+prop (`size`, `loading`, `icon`, `iconPosition`, `iconOnly`, native passthrough) is a 1:1 match.
 
 ## Call sites replaced
 
@@ -20,13 +28,20 @@ passed straight through with no additional logic. No new state, no styling overr
 |---|---|---|
 | `src/components/overview/AgentStatusBar.tsx` | MC's own `Badge` (`src/components/ui/Badge.tsx`) | `BadgeAdapter` → `@mcui/react`'s `StatusBadge` |
 
-This is the **only** call site touched. `Badge` has 16 importing files total in this repo;
+This is the only `Badge` call site touched. `Badge` has 16 importing files total in this repo;
 the other 15 (`GroupRoomView.tsx`, `AgentsPanel.tsx`, `AttentionNeeded.tsx`,
 `OverviewDashboard.tsx`, `SystemHealthPanel.tsx`, `HonchoSettingsPanel.tsx`,
 `ToolsRoute.tsx`, `AgentsRoute.tsx`, `CronRoute.tsx`, `SessionsRoute.tsx`, `SkillsRoute.tsx`,
 `KnowledgeRoute.tsx`, `LogsRoute.tsx`, `ConfigRoute.tsx`, `BotsRoute.tsx`, plus `Badge.tsx`
 itself) are untouched and remain on MC's original `Badge` component — confirmed byte-identical
-to `fork/main` as part of this phase's scope-containment verification.
+to `fork/main` as part of Phase 5's scope-containment verification.
+
+`Button` was fully migrated in Phase 6.2 (issue #79): all 13 call sites now use `ButtonAdapter`.
+Files: `ChatDrawer.tsx`, `MissionControlShell.tsx`, `HonchoSettingsPanel.tsx`,
+`overview/{QuickActions,DashboardGrid}.tsx`, `routes/{Kanban,Cron,Sessions,Usage,Skills,Logs,Config,Bots}Route.tsx`.
+MC's own `Button` component (`src/components/ui/Button.tsx`) is left in place, unused by any
+call site as of this migration — not deleted, since deletion wasn't in issue #79's scope
+(removing dead code is a separate decision, not part of a migration issue).
 
 ## What did NOT change
 

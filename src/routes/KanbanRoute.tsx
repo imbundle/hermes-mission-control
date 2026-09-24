@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Kanban as KanbanIcon, RefreshCw, Plus, X, MessageSquare, GitBranch, Trash2, Search, ChevronDown } from 'lucide-react';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Dropdown } from '../components/ui/Dropdown';
 import {
   loadKanbanBoard,
@@ -353,18 +353,18 @@ function TaskDrawer({
                   {formatAge(detail.created_at) ? <span>{formatAge(detail.created_at)}</span> : null}
                 </div>
               </div>
-              <Button variant="ghost" size="sm" aria-label={t('kanban.closeTask')} onClick={onClose}>
+              <ButtonAdapter variant="ghost" size="sm" aria-label={t('kanban.closeTask')} onClick={onClose}>
                 <X size={14} />
-              </Button>
+              </ButtonAdapter>
             </div>
 
             {/* Status actions */}
             <div className="mt-3 flex flex-wrap items-center gap-1.5 rounded-lg border border-border-subtle bg-surface-sunken p-2">
               <span className="mr-1 text-[10px] font-semibold uppercase tracking-wide text-text-subtle">{t('kanban.actions')}</span>
-              {detail.status !== 'ready' && detail.status !== 'done' ? <Button size="sm" disabled={actionBusy} onClick={() => void runAction('ready')}>{t('kanban.ready')}</Button> : null}
-              {detail.status !== 'blocked' && detail.status !== 'done' ? <Button size="sm" disabled={actionBusy} onClick={() => void runAction('blocked')}>{t('kanban.block')}</Button> : null}
-              {detail.status !== 'done' ? <Button size="sm" disabled={actionBusy} onClick={() => void runAction('done')}>{t('kanban.complete')}</Button> : null}
-              <Button variant="ghost" size="sm" disabled={actionBusy} onClick={() => void runAction('archive')}>{t('kanban.archive')}</Button>
+              {detail.status !== 'ready' && detail.status !== 'done' ? <ButtonAdapter size="sm" disabled={actionBusy} onClick={() => void runAction('ready')}>{t('kanban.ready')}</ButtonAdapter> : null}
+              {detail.status !== 'blocked' && detail.status !== 'done' ? <ButtonAdapter size="sm" disabled={actionBusy} onClick={() => void runAction('blocked')}>{t('kanban.block')}</ButtonAdapter> : null}
+              {detail.status !== 'done' ? <ButtonAdapter size="sm" disabled={actionBusy} onClick={() => void runAction('done')}>{t('kanban.complete')}</ButtonAdapter> : null}
+              <ButtonAdapter variant="ghost" size="sm" disabled={actionBusy} onClick={() => void runAction('archive')}>{t('kanban.archive')}</ButtonAdapter>
             </div>
 
             {/* Editable metadata */}
@@ -373,7 +373,7 @@ function TaskDrawer({
                 <span className="text-[10px] font-semibold uppercase tracking-wide text-text-subtle">{t('kanban.assignee')}</span>
                 <div className="mt-1 flex gap-1">
                   <input value={assigneeDraft} onChange={(e) => setAssigneeDraft(e.target.value)} placeholder="blank = dispatcher" className="min-w-0 flex-1 rounded-md border border-border-subtle bg-surface px-2 py-1.5 text-xs text-text placeholder:text-text-subtle focus:border-border focus:outline-none" />
-                  <Button size="sm" disabled={actionBusy} onClick={() => void saveMetadata({ assignee: assigneeDraft.trim() || null })}>{t('ui.save')}</Button>
+                  <ButtonAdapter size="sm" disabled={actionBusy} onClick={() => void saveMetadata({ assignee: assigneeDraft.trim() || null })}>{t('ui.save')}</ButtonAdapter>
                 </div>
               </label>
               <label className="block">
@@ -386,7 +386,7 @@ function TaskDrawer({
             <section className="mt-3 rounded-lg border border-border-subtle bg-surface-sunken p-2.5">
               <h3 className="text-[10px] font-semibold uppercase tracking-wide text-text-subtle">{t('kanban.dependencies')}</h3>
               {(detail.parents?.length ?? 0) > 0 ? <div className="mt-1 space-y-1">{detail.parents!.map((parentId) => <div key={parentId} className="flex items-center justify-between text-[10px] text-text-muted"><code>{parentId}</code><button type="button" className="text-text-subtle hover:text-red-400" onClick={() => void removeParent(parentId)}>remove</button></div>)}</div> : <p className="mt-1 text-[10px] text-text-subtle">{t('kanban.noParentTasks')}</p>}
-              <div className="mt-2 flex gap-1"><input value={parentDraft} onChange={(e) => setParentDraft(e.target.value)} placeholder="Parent task ID" className="min-w-0 flex-1 rounded-md border border-border-subtle bg-surface px-2 py-1.5 text-xs text-text placeholder:text-text-subtle focus:border-border focus:outline-none" /><Button size="sm" disabled={!parentDraft.trim() || actionBusy} onClick={() => void addParent()}>Add parent</Button></div>
+              <div className="mt-2 flex gap-1"><input value={parentDraft} onChange={(e) => setParentDraft(e.target.value)} placeholder="Parent task ID" className="min-w-0 flex-1 rounded-md border border-border-subtle bg-surface px-2 py-1.5 text-xs text-text placeholder:text-text-subtle focus:border-border focus:outline-none" /><ButtonAdapter size="sm" disabled={!parentDraft.trim() || actionBusy} onClick={() => void addParent()}>Add parent</ButtonAdapter></div>
             </section>
 
             {/* Body */}
@@ -504,9 +504,9 @@ function TaskDrawer({
                 placeholder={t('kanban.addComment')}
                 className="flex-1 rounded-lg border border-border-subtle bg-surface-sunken px-2.5 py-2 text-xs text-text placeholder:text-text-subtle focus:border-border focus:outline-none"
               />
-              <Button type="submit" size="sm" disabled={!commentDraft.trim() || postingComment}>
+              <ButtonAdapter type="submit" size="sm" disabled={!commentDraft.trim() || postingComment}>
                 {postingComment ? '…' : 'Send'}
-              </Button>
+              </ButtonAdapter>
             </form>
           </>
         )}
@@ -815,9 +815,9 @@ export function KanbanRoute() {
           <div className="flex items-center gap-2">
             {error ? <span className="text-[10px] text-red-400 truncate max-w-[14rem]" role="alert">{error}</span> : null}
             {refreshing ? <RefreshCw size={12} className="text-text-subtle animate-spin" /> : null}
-            <Button size="sm" onClick={() => setNewBoardOpen(true)}>
+            <ButtonAdapter size="sm" onClick={() => setNewBoardOpen(true)}>
               <Plus size={13} className="mr-1" /> New
-            </Button>
+            </ButtonAdapter>
           </div>
         </div>
 
@@ -881,7 +881,7 @@ export function KanbanRoute() {
           <form className="kanban-modal w-full sm:max-w-md max-h-[92dvh] overflow-y-auto rounded-t-xl sm:rounded-xl border border-border-subtle bg-surface p-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-xl" onClick={(e) => e.stopPropagation()} onSubmit={(e) => { e.preventDefault(); void submitNewTask(); }}>
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-text">New task → {newTaskStatus}</h2>
-              <Button variant="ghost" size="sm" type="button" aria-label="Cancel new task" onClick={closeNewTask}><X size={14} /></Button>
+              <ButtonAdapter variant="ghost" size="sm" type="button" aria-label="Cancel new task" onClick={closeNewTask}><X size={14} /></ButtonAdapter>
             </div>
             <label className="mt-3 block">
               <span className="text-[10px] font-semibold uppercase tracking-wide text-text-subtle">Column</span>
@@ -971,8 +971,8 @@ export function KanbanRoute() {
               <textarea value={newTaskBody} onChange={(e) => setNewTaskBody(e.target.value)} placeholder="Rough idea — AI will spec it…" rows={2} className="mt-1 w-full resize-y rounded-lg border border-border-subtle bg-surface-sunken px-2.5 py-2 text-xs text-text placeholder:text-text-subtle focus:border-border focus:outline-none min-h-[3rem]" />
             </label>
             <div className="mt-3 flex items-center justify-end gap-2">
-              <Button variant="ghost" size="sm" type="button" onClick={closeNewTask}>Cancel</Button>
-              <Button type="submit" size="sm" disabled={!newTaskTitle.trim() || creating}>{creating ? 'Creating…' : 'Create'}</Button>
+              <ButtonAdapter variant="ghost" size="sm" type="button" onClick={closeNewTask}>Cancel</ButtonAdapter>
+              <ButtonAdapter type="submit" size="sm" disabled={!newTaskTitle.trim() || creating}>{creating ? 'Creating…' : 'Create'}</ButtonAdapter>
             </div>
           </form>
         </div>
@@ -984,7 +984,7 @@ export function KanbanRoute() {
           <form className="kanban-modal w-full sm:max-w-md max-h-[92dvh] overflow-y-auto rounded-t-xl sm:rounded-xl border border-border-subtle bg-surface p-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-xl" onClick={(e) => e.stopPropagation()} onSubmit={(e) => { e.preventDefault(); void submitNewBoard(); }}>
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-text">{t('kanban.newBoard')}</h2>
-              <Button variant="ghost" size="sm" type="button" aria-label="Cancel new board" onClick={closeNewBoard}><X size={14} /></Button>
+              <ButtonAdapter variant="ghost" size="sm" type="button" aria-label="Cancel new board" onClick={closeNewBoard}><X size={14} /></ButtonAdapter>
             </div>
             <p className="mt-1 text-[10px] text-text-muted">{t('kanban.newBoardSubtitle')}</p>
             <label className="mt-3 block">
@@ -1044,8 +1044,8 @@ export function KanbanRoute() {
               <span className="text-xs text-text-muted">Switch to this board after creating it</span>
             </label>
             <div className="mt-3 flex items-center justify-end gap-2">
-              <Button variant="ghost" size="sm" type="button" onClick={closeNewBoard}>Cancel</Button>
-              <Button type="submit" size="sm" disabled={(!newBoardSlug.trim() && !newBoardName.trim()) || creatingBoard}>{creatingBoard ? 'Creating…' : 'Create board'}</Button>
+              <ButtonAdapter variant="ghost" size="sm" type="button" onClick={closeNewBoard}>Cancel</ButtonAdapter>
+              <ButtonAdapter type="submit" size="sm" disabled={(!newBoardSlug.trim() && !newBoardName.trim()) || creatingBoard}>{creatingBoard ? 'Creating…' : 'Create board'}</ButtonAdapter>
             </div>
           </form>
         </div>
@@ -1062,8 +1062,8 @@ export function KanbanRoute() {
               <span className="text-xs text-text-muted"><span className="font-medium text-text">Permanently delete</span> — unchecked, the board is archived and can be restored later; checked, the board and its database are gone for good.</span>
             </label>
             <div className="mt-3 flex items-center justify-end gap-2">
-              <Button variant="ghost" size="sm" type="button" onClick={closeDeleteBoard}>Cancel</Button>
-              <Button type="submit" size="sm" disabled={deletingBoard} className={deleteHard ? 'bg-red-500 hover:bg-red-600' : ''}>{deletingBoard ? 'Deleting…' : deleteHard ? 'Delete permanently' : 'Archive board'}</Button>
+              <ButtonAdapter variant="ghost" size="sm" type="button" onClick={closeDeleteBoard}>Cancel</ButtonAdapter>
+              <ButtonAdapter type="submit" size="sm" disabled={deletingBoard} className={deleteHard ? 'bg-red-500 hover:bg-red-600' : ''}>{deletingBoard ? 'Deleting…' : deleteHard ? 'Delete permanently' : 'Archive board'}</ButtonAdapter>
             </div>
           </form>
         </div>

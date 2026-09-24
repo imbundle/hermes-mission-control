@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { AlertTriangle, ArrowUp, FileText, Loader2, RefreshCw, TerminalSquare } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { PageHeader } from '../components/PageHeader';
 import {
   MissionControlAuthError,
@@ -303,7 +303,7 @@ export function LogsRoute() {
               {visibleFiles.map((file) => {
                 const selected = file.name === activeFile.name;
                 return (
-                  <Button
+                  <ButtonAdapter
                     key={file.name}
                     size="sm"
                     variant={selected ? 'primary' : 'secondary'}
@@ -311,7 +311,7 @@ export function LogsRoute() {
                     onClick={() => setSelectedFileName(file.name)}
                   >
                     {file.name}
-                  </Button>
+                  </ButtonAdapter>
                 );
               })}
             </div>
@@ -359,7 +359,7 @@ export function LogsRoute() {
         </Card>
 
       {showScrollTop ? (
-        <Button
+        <ButtonAdapter
           variant="primary"
           size="md"
           icon={<ArrowUp className="h-5 w-5" />}

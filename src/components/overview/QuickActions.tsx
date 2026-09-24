@@ -3,7 +3,7 @@ import { RefreshCw, Rocket, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { MissionControlGatewayAction } from '../../lib/mission-control-store';
 import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { ButtonAdapter } from '../mcui-adapters/ButtonAdapter';
 
 type QuickActionsProps = {
   gatewayActions: MissionControlGatewayAction[];
@@ -32,7 +32,7 @@ export function QuickActions({
 
       <div className="p-3 flex flex-wrap items-center gap-2">
         {refreshAction && (
-          <Button
+          <ButtonAdapter
             variant="secondary"
             size="sm"
             icon={<RefreshCw className="h-3.5 w-3.5" />}
@@ -40,11 +40,11 @@ export function QuickActions({
             onClick={() => void runGatewayAction(refreshAction)}
           >
             Refresh
-          </Button>
+          </ButtonAdapter>
         )}
 
         {restartAction && (
-          <Button
+          <ButtonAdapter
             variant="secondary"
             size="sm"
             icon={<Rocket className="h-3.5 w-3.5" />}
@@ -52,19 +52,19 @@ export function QuickActions({
             onClick={() => void runGatewayAction(restartAction)}
           >
             Restart gateway
-          </Button>
+          </ButtonAdapter>
         )}
 
         <div className="flex-1" />
 
-        <Button
+        <ButtonAdapter
           variant="ghost"
           size="sm"
           icon={<Settings className="h-3.5 w-3.5" />}
           onClick={() => navigate('/config')}
         >
           Settings
-        </Button>
+        </ButtonAdapter>
       </div>
     </Card>
   );

@@ -2,7 +2,7 @@ import { useI18n } from '../lib/i18n';
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { ChevronDown, CircleAlert, Download, Loader2, Plus, RefreshCw, Save, Search, Trash2 } from 'lucide-react';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
 import { Card } from '../components/ui/Card';
 import { Dropdown } from '../components/ui/Dropdown';
@@ -393,16 +393,16 @@ function ProfileEditor({
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             {mode === 'edit' ? (
-              <Button type="button" variant="danger" icon={<Trash2 size={15} />} onClick={() => void onDelete()} disabled={busy}>
+              <ButtonAdapter type="button" variant="danger" icon={<Trash2 size={15} />} onClick={() => void onDelete()} disabled={busy}>
                 {t('bots.delete')}
-              </Button>
+              </ButtonAdapter>
             ) : null}
           </div>
           <div className="flex flex-wrap items-center justify-end gap-2">
-            {mode === 'create' ? <Button type="button" variant="ghost" onClick={onCancelCreate} disabled={busy}>{t('bots.cancel')}</Button> : null}
-            <Button type="submit" form="bot-profile-form" variant="primary" icon={busy ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />} disabled={busy}>
+            {mode === 'create' ? <ButtonAdapter type="button" variant="ghost" onClick={onCancelCreate} disabled={busy}>{t('bots.cancel')}</ButtonAdapter> : null}
+            <ButtonAdapter type="submit" form="bot-profile-form" variant="primary" icon={busy ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />} disabled={busy}>
               {busy ? t('bots.saving') : mode === 'create' ? t('bots.create') : t('bots.save')}
-            </Button>
+            </ButtonAdapter>
           </div>
         </div>
       )}
@@ -724,7 +724,7 @@ function ProfileEditor({
                         {installed ? (
                           <Badge variant="positive">{t('bots.installed')}</Badge>
                         ) : (
-                          <Button
+                          <ButtonAdapter
                             type="button"
                             size="sm"
                             variant="secondary"
@@ -735,7 +735,7 @@ function ProfileEditor({
                             title={mode === 'create' ? t('bots.saveBeforeInstall') : t('bots.install')}
                           >
                             {t('bots.install')}
-                          </Button>
+                          </ButtonAdapter>
                         )}
                       </div>
                     );
@@ -981,12 +981,12 @@ export function BotsRoute() {
         description={t('bots.description')}
         actions={(
           <div className="bots-page-actions flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
-            <Button size="sm" className="min-w-0 flex-1 sm:flex-none" variant="secondary" icon={<RefreshCw size={14} className={loading ? 'animate-spin' : ''} />} onClick={() => void refreshRoster(selectedName)} disabled={loading}>
+            <ButtonAdapter size="sm" className="min-w-0 flex-1 sm:flex-none" variant="secondary" icon={<RefreshCw size={14} className={loading ? 'animate-spin' : ''} />} onClick={() => void refreshRoster(selectedName)} disabled={loading}>
               {t('bots.refresh')}
-            </Button>
-            <Button size="sm" className="min-w-0 flex-1 sm:flex-none" variant="primary" icon={<Plus size={14} />} onClick={startCreate}>
+            </ButtonAdapter>
+            <ButtonAdapter size="sm" className="min-w-0 flex-1 sm:flex-none" variant="primary" icon={<Plus size={14} />} onClick={startCreate}>
               {t('bots.new')}
-            </Button>
+            </ButtonAdapter>
           </div>
         )}
       />
