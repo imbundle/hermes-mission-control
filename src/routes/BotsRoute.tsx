@@ -6,7 +6,7 @@ import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
 import { Modal } from '../components/Modal';
 import { Card } from '../components/ui/Card';
 import { Dropdown } from '../components/ui/Dropdown';
-import { ToggleSwitch } from '../components/ui/ToggleSwitch';
+import { ToggleSwitchAdapter } from '../components/mcui-adapters/ToggleSwitchAdapter';
 import { PageHeader } from '../components/PageHeader';
 import { useMissionControl } from '../lib/mission-control-store';
 import {
@@ -589,7 +589,7 @@ function ProfileEditor({
                             <p className="truncate text-xs font-semibold text-text">{server.name}</p>
                             <p className="mt-1 text-[11px] text-text-subtle">{server.transport || 'MCP'} · {server.configured ? (serverEnabled ? t('bots.enabled') : t('bots.disabled')) : t('bots.mcpAvailable')}</p>
                           </div>
-                          <ToggleSwitch
+                          <ToggleSwitchAdapter
                             id={`mcp-server-${server.name}`}
                             checked={serverEnabled}
                             onChange={() => onChange({ enabledMcpServers: toggleValue(draft.enabledMcpServers, server.name) })}

@@ -10,6 +10,7 @@ deliberately narrow: **one pilot**, not a migration.
 |---|---|---|
 | `BadgeAdapter` | `StatusBadge` | `src/components/mcui-adapters/BadgeAdapter.tsx` |
 | `ButtonAdapter` | `Button` | `src/components/mcui-adapters/ButtonAdapter.tsx` |
+| `ToggleSwitchAdapter` | `Switch` | `src/components/mcui-adapters/ToggleSwitchAdapter.tsx` |
 
 `BadgeAdapter` is a thin wrapper: its `variant` prop is a 1:1 identity map onto
 `StatusBadge`'s `StatusBadgeVariant` union (`default` \| `positive` \| `warning` \| `negative`),
@@ -21,6 +22,13 @@ hard-codes `'secondary'` as its own default so call sites that omit `variant` ke
 rendered appearance. Forwards `ref` (mcui's `Button` is `forwardRef`-wrapped; at least one call
 site, `MissionControlShell.tsx`, depends on this — caught by `tsc`, not assumed). Every other
 prop (`size`, `loading`, `icon`, `iconPosition`, `iconOnly`, native passthrough) is a 1:1 match.
+
+`ToggleSwitchAdapter` is a thin wrapper over mcui's `Switch` (same native `<input
+type="checkbox">` pattern as MC's own `ToggleSwitch`). mcui's version additionally sets
+`role="switch"` with a live-tracked `aria-checked` and accepts a `data-testid` prop MC's
+original lacks — neither is behaviorally required by either of the 2 call sites, so no
+extra mapping logic was needed. Forwards `ref` for API parity with MC's original (which is
+`forwardRef`-wrapped), though neither call site currently passes one.
 
 ## Call sites replaced
 
@@ -42,6 +50,10 @@ Files: `ChatDrawer.tsx`, `MissionControlShell.tsx`, `HonchoSettingsPanel.tsx`,
 MC's own `Button` component (`src/components/ui/Button.tsx`) is left in place, unused by any
 call site as of this migration — not deleted, since deletion wasn't in issue #79's scope
 (removing dead code is a separate decision, not part of a migration issue).
+
+`ToggleSwitch` was fully migrated in Phase 6.3 (issue #80): both call sites now use
+`ToggleSwitchAdapter`. Files: `routes/{Skills,Bots}Route.tsx`. MC's own `ToggleSwitch` component
+(`src/components/ui/ToggleSwitch.tsx`) is left in place, unused, same rationale as `Button.tsx`.
 
 ## What did NOT change
 

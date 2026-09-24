@@ -7,7 +7,7 @@ import remarkBreaks from 'remark-breaks';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { ButtonAdapter } from '../components/mcui-adapters/ButtonAdapter';
-import { ToggleSwitch } from '../components/ui/ToggleSwitch';
+import { ToggleSwitchAdapter } from '../components/mcui-adapters/ToggleSwitchAdapter';
 import { Modal } from '../components/Modal';
 import { PageHeader } from '../components/PageHeader';
 import {
@@ -385,7 +385,7 @@ export function SkillsRoute() {
                     <p className="text-xs text-text-muted line-clamp-2">{skill.description}</p>
                   </button>
                   <div className="flex shrink-0 items-center gap-3">
-                    <ToggleSwitch
+                    <ToggleSwitchAdapter
                       id={`toggle-${skill.id}`}
                       checked={skill.enabled}
                       disabled={togglingSkills.has(skill.name)}
